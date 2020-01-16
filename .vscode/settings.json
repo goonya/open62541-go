@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "signal.h": "c",
+        "server.h": "c",
+        "server_config_default.h": "c"
+    }
+}

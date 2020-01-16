@@ -1,0 +1,10 @@
+--- 
+GENERATOR: 
+  PackageName: open62541
+  PackageDescription: "Package open62541 provides Go bindings for https://github.com/open62541/open62541"
+  PackageLicense: "Mozilla Public License Version 2.0"
+  # PkgConfigOpts: [open62541server, open62541client]
+  Includes: ["open62541/server.h", "open62541/client.h"]
+PARSER: 
+  IncludePaths: ["/usr/include", "/usr/src/linux/include/linux", "/usr/include/c++/9.2.0/x86_64-pc-linux-gnu"]
+  SourcesPaths: ["open62541/server.h", "open62541/client.h"]
