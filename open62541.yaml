@@ -30,6 +30,8 @@ GENERATOR:
       "open62541/util.h",
       "open62541/ziptree.h",
     ]
+  FlagGroups:
+    - {name: LDFLAGS, flags: [-lopen62541]}
 PARSER:
   IncludePaths:
     ["/usr/include", "/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include"]

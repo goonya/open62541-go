@@ -8,6 +8,7 @@ import (
 
 func main() {
 	server := open62541.ServerNew()
+
 	//open62541.ServerConfigSetDefault(open62541.ServerGetConfig(server))
 	fmt.Println(server)
 }
