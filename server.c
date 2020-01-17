@@ -3,12 +3,14 @@
 #include <open62541/server_config_default.h>
 
 UA_Boolean running = true;
-void signalHandler(int sig) {
+void signalHandler(int sig)
+{
     running = false;
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
+    PRINTFSTRINGFORMAT
     signal(SIGINT, signalHandler); /* catch ctrl-c */
 
     /* Create a server listening on port 4840 */
