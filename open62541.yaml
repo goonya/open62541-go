@@ -30,12 +30,21 @@ GENERATOR:
       "open62541/util.h",
       "open62541/ziptree.h",
     ]
+  Options:
+    SafeStrings: true
+    StructAccessors: true
   FlagGroups:
     - {name: LDFLAGS, flags: [-lopen62541]}
 PARSER:
   IncludePaths:
     ["/usr/include", "/usr/lib/gcc/x86_64-pc-linux-gnu/9.2.0/include"]
-  SourcesPaths: ["open62541/server.h"]
+  SourcesPaths: 
+    [
+      "open62541/server.h",
+      "open62541/server_config_default.h",
+      "open62541/server_config.h",
+      "open62541/types.h",
+    ]
   Defines:
     __builtin_va_start: {}
     __builtin_va_end: {}
@@ -44,27 +53,37 @@ TRANSLATOR:
     defines: eval
   PtrTips:
     function:
-      - { target: "UA_Server_newWithConfig$", tips: [ref] }
-      # - { target: "UA_Server_getConfig$", tips: [ref] }
-      # - { target: "UA_ServerConfig_setDefault$", tips: [ref] }
-      # - { target: "UA_ServerConfig_setMinimal$", tips: [ref, size, ref] }
-      # - {
-      #     target: "UA_ServerConfig_setMinimalCustomBuffer$",
-      #     tips: [ref, size, ref, size, size],
-      #   }
+      - { target: "^UA_Server_newWithConfig$", tips: [ref] }
+      - { target: "^UA_Server_delete$", tips: [ref] }
+      - { target: "^UA_Server_getConfig$", tips: [ref] }
+      - { target: "^UA_ServerConfig_setDefault$", tips: [ref] }
+      - { target: "^UA_ServerConfig_setMinimal$", tips: [ref, size, ref] }
+      - {
+          target: "^UA_ServerConfig_setMinimalCustomBuffer$",
+          tips: [ref, size, ref, size, size],
+        }
+      - { target: "^UA_Server_run$", tips: [ref, ref] }
   Rules:
     global:
       # - { action: accept, from: "^UA_" }
       # - { action: ignore, from: "^UA_LOG_" }
-
-      - { action: accept, from: "^UA_Server$" }
-      - { action: accept, from: "^UA_Server_new$" }
-      # - { action: accept, from: "^UA_Server_newWithConfig$" }
-      # - { action: accept, from: "^UA_Server_getConfig$" }
-      # - { action: accept, from: "^UA_ServerConfig_setDefault$" }
-      # - { action: accept, from: "^UA_ServerConfig_setMinimal$" }
-      # - { action: accept, from: "^UA_ServerConfig_setMinimalCustomBuffer$" }
       - { action: replace, from: ^UA_ }
+    function:
+      - { action: accept, from: "^UA_Server_new$" }
+      - { action: accept, from: "^UA_Server_newWithConfig$" }
+      - { action: accept, from: "^UA_Server_delete$" }
+      - { action: accept, from: "^UA_Server_getConfig$" }
+      - { action: accept, from: "^UA_ServerConfig_setDefault$" }
+      - { action: accept, from: "^UA_ServerConfig_setMinimal$" }
+      - { action: accept, from: "^UA_ServerConfig_setMinimalCustomBuffer$" }
+      - { action: accept, from: "^UA_Server_run$" }
+    type:
+      # - { action: accept, from: "^UA_" }
+      - { action: accept, from: "^monitoredItemRegisterCallback$" }
+      - { action: accept, from: "^UA_ByteString$" }
+      - { action: accept, from: "^UA_NodeId$" }
+      - { action: accept, from: "^UA_ServerConfig$" }
+      - { action: accept, from: "^UA_Server$" }
     # private:
     #   - { transform: unexport }
     post-global:

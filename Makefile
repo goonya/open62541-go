@@ -6,5 +6,5 @@ clean:
 	rm -f open62541/const.go open62541/doc.go open62541/types.go
 	rm -f open62541/open62541.go
 
-test:
+build:
 	cd example && go build
