@@ -10,7 +10,6 @@ void signalHandler(int sig)
 
 int main(int argc, char **argv)
 {
-    PRINTFSTRINGFORMAT
     signal(SIGINT, signalHandler); /* catch ctrl-c */
 
     /* Create a server listening on port 4840 */
