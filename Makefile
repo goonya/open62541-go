@@ -7,4 +7,5 @@ clean:
 	rm -f open62541/open62541.go
 
 build:
-	cd example && go build
+	cd examples/tutorial_server_firststeps && go build
+	cd examples/tutorial_server_object && go build
