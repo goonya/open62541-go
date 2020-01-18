@@ -5,11 +5,11 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/goonya/open62541-go/open62541"
+	ua "github.com/goonya/open62541-go/open62541"
 )
 
 func main() {
-	var running bool = true
+	var running ua.Boolean = true
 	sigChannel := make(chan os.Signal, 1)
 	signal.Notify(sigChannel, syscall.SIGINT, syscall.SIGTERM)
 	go func() {
@@ -17,9 +17,9 @@ func main() {
 		running = false
 	}()
 
-	server := open62541.ServerNew()
-	open62541.ServerConfigSetDefault(open62541.ServerGetConfig(server))
-	status := open62541.ServerRun(server, &running)
-	open62541.ServerDelete(server)
+	server := ua.ServerNew()
+	ua.ServerConfigSetDefault(ua.ServerGetConfig(server))
+	status := ua.ServerRun(server, &running)
+	ua.ServerDelete(server)
 	os.Exit(int(status))
 }

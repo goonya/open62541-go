@@ -5,7 +5,6 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
-	"unsafe"
 
 	ua "github.com/goonya/open62541-go/open62541"
 )
@@ -16,7 +15,7 @@ var (
 )
 
 func manuallyDefinePump(server *ua.Server) {
-	var pumpId ua.NodeId /* get the nodeid assigned by the server */
+	var pumpID ua.NodeId /* get the nodeid assigned by the server */
 	var oAttr ua.ObjectAttributes
 	oAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("Pump (Manual)"))
 	//oAttr.PassRef()
@@ -26,49 +25,49 @@ func manuallyDefinePump(server *ua.Server) {
 		ua.NODEIDNUMERIC(0, ua.NS0IDORGANIZES),
 		ua.QUALIFIEDNAME(1, []byte("Pump (Manual)")),
 		ua.NODEIDNUMERIC(0, ua.NS0IDBASEOBJECTTYPE),
-		oAttr, nil, &pumpId,
+		oAttr, nil, &pumpID,
 	)
 
 	var mnAttr ua.VariableAttributes
-	var manufacturerName ua.String = ua.STRING([]byte("Pump King Ltd."))
-	ua.VariantSetScalar(&mnAttr.Value, unsafe.Pointer(&manufacturerName), &ua.TYPES[ua.TYPESSTRING])
+	// var manufacturerName ua.String = ua.STRING([]byte("Pump King Ltd."))
+	// ua.VariantSetScalar(&mnAttr.Value, unsafe.Pointer(&manufacturerName), &ua.TYPES[ua.TYPESSTRING])
 	mnAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("ManufacturerName"))
-	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpId,
+	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
 		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
 		ua.QUALIFIEDNAME(1, []byte("ManufacturerName")),
 		ua.NODEIDNUMERIC(0, ua.NS0IDBASEDATAVARIABLETYPE), mnAttr, nil, nil,
 	)
 
-	// ua.VariableAttributes modelAttr = ua.VariableAttributes_default;
-	// ua.String modelName = ua.STRING("Mega Pump 3000");
-	// ua.Variant_setScalar(&modelAttr.value, &modelName, &ua.TYPES[ua.TYPES_STRING]);
-	// modelAttr.displayName = ua.LOCALIZEDTEXT([]byte(locale), "ModelName");
-	// ua.Server_addVariableNode(server, ua.NodeId{}, pumpId,
-	//                           ua.NODEID_NUMERIC(0, ua.NS0ID_HASCOMPONENT),
-	//                           ua.QUALIFIEDNAME(1, "ModelName"),
-	//                           ua.NODEID_NUMERIC(0, ua.NS0ID_BASEDATAVARIABLETYPE), modelAttr, nil, nil);
+	var modelAttr ua.VariableAttributes
+	// var modelName ua.String = ua.STRING([]byte("Mega Pump 3000"))
+	// ua.VariantSetScalar(&modelAttr.Value, unsafe.Pointer(&modelName), &ua.TYPES[ua.TYPESSTRING])
+	modelAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("ModelName"))
+	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
+		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
+		ua.QUALIFIEDNAME(1, []byte("ModelName")),
+		ua.NODEIDNUMERIC(0, ua.NS0IDBASEDATAVARIABLETYPE), modelAttr, nil, nil)
 
-	// ua.VariableAttributes statusAttr = ua.VariableAttributes_default;
-	// ua.Boolean status = true;
-	// ua.Variant_setScalar(&statusAttr.value, &status, &ua.TYPES[ua.TYPES_BOOLEAN]);
-	// statusAttr.displayName = ua.LOCALIZEDTEXT([]byte(locale), "Status");
-	// ua.Server_addVariableNode(server, ua.NodeId{}, pumpId,
-	//                           ua.NODEID_NUMERIC(0, ua.NS0ID_HASCOMPONENT),
-	//                           ua.QUALIFIEDNAME(1, "Status"),
-	//                           ua.NODEID_NUMERIC(0, ua.NS0ID_BASEDATAVARIABLETYPE), statusAttr, nil, nil);
+	var statusAttr ua.VariableAttributes
+	// var status ua.Boolean = true
+	// ua.VariantSetScalar(&statusAttr.Value, unsafe.Pointer(&status), &ua.TYPES[ua.TYPESBOOLEAN])
+	statusAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("Status"))
+	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
+		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
+		ua.QUALIFIEDNAME(1, []byte("Status")),
+		ua.NODEIDNUMERIC(0, ua.NS0IDBASEDATAVARIABLETYPE), statusAttr, nil, nil)
 
-	// ua.VariableAttributes rpmAttr = ua.VariableAttributes_default;
-	// ua.Double rpm = 50.0;
-	// ua.Variant_setScalar(&rpmAttr.value, &rpm, &ua.TYPES[ua.TYPES_DOUBLE]);
-	// rpmAttr.displayName = ua.LOCALIZEDTEXT([]byte(locale), "MotorRPM");
-	// ua.Server_addVariableNode(server, ua.NodeId{}, pumpId,
-	//                           ua.NODEID_NUMERIC(0, ua.NS0ID_HASCOMPONENT),
-	//                           ua.QUALIFIEDNAME(1, "MotorRPMs"),
-	//                           ua.NODEID_NUMERIC(0, ua.NS0ID_BASEDATAVARIABLETYPE), rpmAttr, nil, nil);
+	var rpmAttr ua.VariableAttributes
+	// var rpm ua.Double = 50.0
+	//ua.VariantSetScalar(&rpmAttr.Value, unsafe.Pointer(&rpm), &ua.TYPES[ua.TYPESDOUBLE])
+	rpmAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("MotorRPM"))
+	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
+		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
+		ua.QUALIFIEDNAME(1, []byte("MotorRPMs")),
+		ua.NODEIDNUMERIC(0, ua.NS0IDBASEDATAVARIABLETYPE), rpmAttr, nil, nil)
 }
 
 func main() {
-	var running bool = true
+	var running ua.Boolean = true
 	sigChannel := make(chan os.Signal, 1)
 	signal.Notify(sigChannel, syscall.SIGINT, syscall.SIGTERM)
 	go func() {
