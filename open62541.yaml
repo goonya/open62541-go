@@ -51,83 +51,100 @@ PARSER:
     __builtin_va_end: {}
 TRANSLATOR:
   ConstRules:
-    defines: expand
-    enum: expand
+    defines: eval
+    enum: eval
   MemTips:
     - { target: "^UA_VariableAttributes$", self: bind }
     - { target: "^UA_ObjectAttributes$", self: bind }
+    - { target: "^UA_ObjectTypeAttributes$", self: bind }
+    - { target: "^UA_WriteValue$", self: bind }
+    # Other
     - { target: "^UA_", self: raw }
-  # TypeTips:
-  #   type:
-  #     - { target: "^UA_DataType$", self: plain }
   PtrTips:
     function:
       - { target: "^UA_Server_newWithConfig$", tips: [ref] }
       - { target: "^UA_Server_delete$", tips: [ref] }
       - { target: "^UA_Server_getConfig$", tips: [ref] }
-      - { target: "^UA_ServerConfig_setDefault$", tips: [ref] }
-      - { target: "^UA_ServerConfig_setMinimal$", tips: [ref, size, ref] }
+      - { target: "^UA_Server_run$", tips: [ref, ref] }
+      - { target: "^UA_Server_write$", tips: [ref, ref] }
+      - { target: "^UA_Server_writeValue$", tips: [ref, size, size] }
+      - { target: "^UA_Server_setNodeTypeLifecycle$", tips: [ref, size, size] }
       - {
-          target: "^UA_ServerConfig_setMinimalCustomBuffer$",
-          tips: [ref, size, ref, size, size],
+          target: "^UA_Server_addVariableNode$",
+          tips: [ref, size, size, size, size, size, size, ref, ref],
         }
       - {
           target: "^UA_Server_addObjectNode$",
           tips: [ref, size, size, size, size, size, size, ref, ref],
         }
       - {
-          target: "^UA_Server_addVariableNode$",
-          tips: [ref, size, size, size, size, size, size, ref, ref],
+          target: "^UA_Server_addObjectTypeNode$",
+          tips: [ref, size, size, size, size, size, ref, ref],
         }
-      - { target: "^UA_Server_run$", tips: [ref, ref] }
-
-      - { target: "^UA_Variant_setScalar$", tips: [ref, ref, ref] }
-
       - { target: "^UA_STRING$", tips: [size] }
-      - { target: "^UA_LOCALIZEDTEXT$", tips: [size, size] }
       - { target: "^UA_NODEID_NUMERIC$", tips: [size, size] }
+      - { target: "^UA_NODEID_STRING$", tips: [size, size] }
       - { target: "^UA_QUALIFIEDNAME$", tips: [size, size] }
+      - { target: "^UA_LOCALIZEDTEXT$", tips: [size, size] }
+      - { target: "^UA_Variant_init$", tips: [ref] }
+      - { target: "^UA_WriteValue_init$", tips: [ref] }
+      - { target: "^UA_Variant_setScalar$", tips: [ref, ref, ref] }
+      - {
+          target: "^UA_ServerConfig_setMinimalCustomBuffer$",
+          tips: [ref, size, ref, size, size],
+        }
+      - { target: "^UA_ServerConfig_setMinimal$", tips: [ref, size, ref] }
+      - { target: "^UA_ServerConfig_setDefault$", tips: [ref] }
   Rules:
     global:
-      # - { action: accept, from: "^UA_TYPES$" }
       - { action: replace, from: ^UA_ }
     function:
       - { action: accept, from: "^UA_Server_new$" }
       - { action: accept, from: "^UA_Server_newWithConfig$" }
       - { action: accept, from: "^UA_Server_delete$" }
       - { action: accept, from: "^UA_Server_getConfig$" }
-      - { action: accept, from: "^UA_ServerConfig_setDefault$" }
-      - { action: accept, from: "^UA_ServerConfig_setMinimal$" }
-      - { action: accept, from: "^UA_ServerConfig_setMinimalCustomBuffer$" }
-      - { action: accept, from: "^UA_Server_addObjectNode$" }
-      - { action: accept, from: "^UA_Server_addVariableNode$" }
       - { action: accept, from: "^UA_Server_run$" }
-
-      - { action: accept, from: "^UA_Variant_setScalar$" }
-
+      - { action: accept, from: "^UA_Server_write$" }
+      - { action: accept, from: "^UA_Server_writeValue$" }
+      - { action: accept, from: "^UA_Server_setNodeTypeLifecycle$" }
+      - { action: accept, from: "^UA_Server_addVariableNode$" }
+      - { action: accept, from: "^UA_Server_addObjectNode$" }
+      - { action: accept, from: "^UA_Server_addObjectTypeNode$" }
       - { action: accept, from: "^UA_STRING$" }
-      - { action: accept, from: "^UA_LOCALIZEDTEXT$" }
       - { action: accept, from: "^UA_NODEID_NUMERIC$" }
+      - { action: accept, from: "^UA_NODEID_STRING$" }
       - { action: accept, from: "^UA_QUALIFIEDNAME$" }
+      - { action: accept, from: "^UA_LOCALIZEDTEXT$" }
+      - { action: accept, from: "^UA_Variant_init$" }
+      - { action: accept, from: "^UA_WriteValue_init$" }
+      - { action: accept, from: "^UA_Variant_setScalar$" }
+      - { action: accept, from: "^UA_ServerConfig_setMinimalCustomBuffer$" }
+      - { action: accept, from: "^UA_ServerConfig_setMinimal$" }
+      - { action: accept, from: "^UA_ServerConfig_setDefault$" }
     type:
-      # - { action: accept, from: "^UA_" }
+      - { action: accept, from: "^UA_ServerConfig$" }
+      - { action: accept, from: "^UA_Server$" }
+      - { action: accept, from: "^UA_NodeTypeLifecycle$" }
       - { action: accept, from: "^UA_Boolean$" }
+      - { action: accept, from: "^UA_Int32$" }
+      - { action: accept, from: "^UA_Int64$" }
       - { action: accept, from: "^UA_Double$" }
-      - { action: accept, from: "^UA_Variant$" }
-      - { action: accept, from: "^UA_DataType$" }
-      - { action: accept, from: "^UA_VariableAttributes$" }
-      - { action: accept, from: "^UA_ObjectAttributes$" }
       - { action: accept, from: "^UA_String$" }
       - { action: accept, from: "^UA_ByteString$" }
       - { action: accept, from: "^UA_NodeId$" }
-      - { action: accept, from: "^UA_ServerConfig$" }
-      - { action: accept, from: "^UA_Server$" }
-
-      - { action: accept, from: "^UA_LocalizedText$" }
       - { action: accept, from: "^UA_QualifiedName$" }
-
-      - { action: accept, from: "^int64_t$" }
+      - { action: accept, from: "^UA_LocalizedText$" }
+      - { action: accept, from: "^UA_DataType$" }
+      - { action: accept, from: "^UA_Variant$" }
+      - { action: accept, from: "^UA_DataValue$" }
       - { action: accept, from: "^uint64_t$" }
+      - { action: accept, from: "^int64_t$" }
+      - { action: accept, from: "^UA_ObjectAttributes$" }
+      - { action: accept, from: "^UA_VariableAttributes$" }
+      - { action: accept, from: "^UA_ObjectTypeAttributes$" }
+      - { action: accept, from: "^UA_WriteValue$" }
+      # Enums
+      - { action: accept, from: "^UA_AttributeId$" }
     const:
       - { action: accept, from: "^UA_" }
     private:
