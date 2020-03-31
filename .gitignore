@@ -13,3 +13,5 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+examples/tutorial_server_firststeps/tutorial_server_firststeps
+examples/tutorial_server_object/tutorial_server_object

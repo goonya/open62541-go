@@ -5,6 +5,7 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
+	"unsafe"
 
 	ua "github.com/goonya/open62541-go/open62541"
 )
@@ -32,6 +33,7 @@ func manuallyDefinePump(server *ua.Server) {
 	// var manufacturerName ua.String = ua.STRING([]byte("Pump King Ltd."))
 	// ua.VariantSetScalar(&mnAttr.Value, unsafe.Pointer(&manufacturerName), &ua.TYPES[ua.TYPESSTRING])
 	mnAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("ManufacturerName"))
+	mnAttr.AccessLevel = byte(ua.ACCESSLEVELMASKREAD)
 	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
 		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
 		ua.QUALIFIEDNAME(1, []byte("ManufacturerName")),
@@ -42,24 +44,27 @@ func manuallyDefinePump(server *ua.Server) {
 	// var modelName ua.String = ua.STRING([]byte("Mega Pump 3000"))
 	// ua.VariantSetScalar(&modelAttr.Value, unsafe.Pointer(&modelName), &ua.TYPES[ua.TYPESSTRING])
 	modelAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("ModelName"))
+	modelAttr.AccessLevel = byte(ua.ACCESSLEVELMASKREAD)
 	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
 		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
 		ua.QUALIFIEDNAME(1, []byte("ModelName")),
 		ua.NODEIDNUMERIC(0, ua.NS0IDBASEDATAVARIABLETYPE), modelAttr, nil, nil)
 
 	var statusAttr ua.VariableAttributes
-	// var status ua.Boolean = true
-	// ua.VariantSetScalar(&statusAttr.Value, unsafe.Pointer(&status), &ua.TYPES[ua.TYPESBOOLEAN])
+	var status ua.Boolean = true
+	ua.VariantSetScalar(&statusAttr.Value, unsafe.Pointer(&status), &ua.TYPES[ua.TYPESBOOLEAN])
 	statusAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("Status"))
+	statusAttr.AccessLevel = byte(ua.ACCESSLEVELMASKREAD)
 	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
 		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
 		ua.QUALIFIEDNAME(1, []byte("Status")),
 		ua.NODEIDNUMERIC(0, ua.NS0IDBASEDATAVARIABLETYPE), statusAttr, nil, nil)
 
 	var rpmAttr ua.VariableAttributes
-	// var rpm ua.Double = 50.0
-	//ua.VariantSetScalar(&rpmAttr.Value, unsafe.Pointer(&rpm), &ua.TYPES[ua.TYPESDOUBLE])
+	var rpm ua.Double = 50.0
+	ua.VariantSetScalar(&rpmAttr.Value, unsafe.Pointer(&rpm), &ua.TYPES[ua.TYPESDOUBLE])
 	rpmAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("MotorRPM"))
+	rpmAttr.AccessLevel = byte(ua.ACCESSLEVELMASKREAD)
 	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
 		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
 		ua.QUALIFIEDNAME(1, []byte("MotorRPMs")),

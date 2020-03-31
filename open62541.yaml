@@ -32,7 +32,7 @@ GENERATOR:
     ]
   Options:
     SafeStrings: true
-    StructAccessors: true
+    StructAccessors: false
   FlagGroups:
     - { name: LDFLAGS, flags: [-lopen62541] }
 PARSER:
