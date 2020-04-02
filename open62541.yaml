@@ -128,17 +128,17 @@ TRANSLATOR:
       - { action: accept, from: "^UA_Server$" }
       - { action: accept, from: "^UA_NodeTypeLifecycle$" }
       # Start Builtin Types
-      - { action: accept, from: "^UA_Boolean$" }
-      - { action: accept, from: "^UA_SByte$" }
-      - { action: accept, from: "^UA_Byte$" }
-      - { action: accept, from: "^UA_Int16$" }
-      - { action: accept, from: "^UA_UInt16$" }
-      - { action: accept, from: "^UA_Int32$" }
-      - { action: accept, from: "^UA_UInt32$" }
-      - { action: accept, from: "^UA_Int64$" }
-      - { action: accept, from: "^UA_UInt64$" }
-      - { action: accept, from: "^UA_Float$" }
-      - { action: accept, from: "^UA_Double$" }
+      # - { action: accept, from: "^UA_Boolean$" }
+      # - { action: accept, from: "^UA_SByte$" }
+      # - { action: accept, from: "^UA_Byte$" }
+      # - { action: accept, from: "^UA_Int16$" }
+      # - { action: accept, from: "^UA_UInt16$" }
+      # - { action: accept, from: "^UA_Int32$" }
+      # - { action: accept, from: "^UA_UInt32$" }
+      # - { action: accept, from: "^UA_Int64$" }
+      # - { action: accept, from: "^UA_UInt64$" }
+      # - { action: accept, from: "^UA_Float$" }
+      # - { action: accept, from: "^UA_Double$" }
       - { action: accept, from: "^UA_StatusCode$" }
       - { action: accept, from: "^UA_String$" }
       - { action: accept, from: "^UA_DateTime$" }
@@ -155,8 +155,8 @@ TRANSLATOR:
       - { action: accept, from: "^UA_DataValue$" }
       - { action: accept, from: "^UA_DiagnosticInfo$" }
       # End Builtin Types
-      - { action: accept, from: "^uint64_t$" }
-      - { action: accept, from: "^int64_t$" }
+      # - { action: accept, from: "^uint64_t$" }
+      # - { action: accept, from: "^int64_t$" }
       - { action: accept, from: "^UA_ObjectAttributes$" }
       - { action: accept, from: "^UA_VariableAttributes$" }
       - { action: accept, from: "^UA_ObjectTypeAttributes$" }

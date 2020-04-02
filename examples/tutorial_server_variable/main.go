@@ -12,7 +12,7 @@ import (
 
 func addVariable(server *ua.Server, value int32) {
 	var attr ua.VariableAttributes
-	var myInteger ua.Int32 = ua.Int32(value)
+	var myInteger int32 = int32(value)
 	ua.VariantSetScalar(&attr.Value, unsafe.Pointer(&myInteger), &ua.TYPES[ua.TYPESINT32])
 	attr.Description = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("the answer"))
 	attr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("the answer"))
@@ -32,7 +32,7 @@ func addVariable(server *ua.Server, value int32) {
 func writeVariable(server *ua.Server, value int32) {
 	var myIntegerNodeId = ua.NODEIDSTRING(1, []byte("the.answer"))
 
-	var myInteger ua.Int32 = ua.Int32(value)
+	var myInteger int32 = int32(value)
 	var myVar ua.Variant
 	ua.VariantInit(&myVar)
 	ua.VariantSetScalar(&myVar, unsafe.Pointer(&myInteger), &ua.TYPES[ua.TYPESINT32])
@@ -41,7 +41,7 @@ func writeVariable(server *ua.Server, value int32) {
 	var wv ua.WriteValue
 	ua.WriteValueInit(&wv)
 	wv.NodeId = myIntegerNodeId
-	wv.AttributeId = ua.UInt32(ua.ATTRIBUTEIDVALUE)
+	wv.AttributeId = uint32(ua.ATTRIBUTEIDVALUE)
 	wv.Value.SetStatus(uint32(ua.STATUSCODEBADNOTCONNECTED))
 	// wv.Value.HasStatus = true
 	ua.ServerWrite(server, &wv)
@@ -53,7 +53,7 @@ func writeVariable(server *ua.Server, value int32) {
 }
 
 func main() {
-	var running ua.Boolean = true
+	var running bool = true
 	sigChannel := make(chan os.Signal, 1)
 	signal.Notify(sigChannel, syscall.SIGINT, syscall.SIGTERM)
 	go func() {

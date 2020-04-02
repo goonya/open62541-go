@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	var running ua.Boolean = true
+	var running bool = true
 	sigChannel := make(chan os.Signal, 1)
 	signal.Notify(sigChannel, syscall.SIGINT, syscall.SIGTERM)
 	go func() {

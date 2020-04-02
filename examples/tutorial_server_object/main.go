@@ -13,7 +13,6 @@ func manuallyDefinePump(server *ua.Server) {
 	var pumpID ua.NodeId /* get the nodeid assigned by the server */
 	var oAttr ua.ObjectAttributes
 	oAttr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("Pump (Manual)"))
-	//oAttr.PassRef()
 	ua.ServerAddObjectNode(
 		server, ua.NodeId{},
 		ua.NODEIDNUMERIC(0, ua.NS0IDOBJECTSFOLDER),
@@ -45,7 +44,7 @@ func manuallyDefinePump(server *ua.Server) {
 		ua.NODEIDNUMERIC(0, ua.NS0IDBASEDATAVARIABLETYPE), modelAttr, nil, nil)
 
 	var statusAttr ua.VariableAttributes
-	var status ua.Boolean = true
+	var status bool = true
 	ua.VariantSetScalar(&statusAttr.Value, unsafe.Pointer(&status), &ua.TYPES[ua.TYPESBOOLEAN])
 	statusAttr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("Status"))
 	statusAttr.AccessLevel = ua.ACCESSLEVELMASKREAD
@@ -55,7 +54,7 @@ func manuallyDefinePump(server *ua.Server) {
 		ua.NODEIDNUMERIC(0, ua.NS0IDBASEDATAVARIABLETYPE), statusAttr, nil, nil)
 
 	var rpmAttr ua.VariableAttributes
-	var rpm ua.Double = 50.0
+	var rpm float64 = 50.0
 	ua.VariantSetScalar(&rpmAttr.Value, unsafe.Pointer(&rpm), &ua.TYPES[ua.TYPESDOUBLE])
 	rpmAttr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("MotorRPM"))
 	rpmAttr.AccessLevel = ua.ACCESSLEVELMASKREAD
@@ -66,7 +65,7 @@ func manuallyDefinePump(server *ua.Server) {
 }
 
 func main() {
-	var running ua.Boolean = true
+	var running bool = true
 	sigChannel := make(chan os.Signal, 1)
 	signal.Notify(sigChannel, syscall.SIGINT, syscall.SIGTERM)
 	go func() {

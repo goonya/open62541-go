@@ -18,6 +18,11 @@ void setHasStatus(UA_DataValue *value, bool hasStatus) {
 import "C"
 import "unsafe"
 
+type (
+	Int64T = int64
+	Uint64T = uint64
+)
+
 // https://github.com/golang/go/wiki/cgo#turning-c-arrays-into-go-slices
 var TYPES = (*[373]DataType)(unsafe.Pointer(&C.UA_TYPES))[:373:373]
 
