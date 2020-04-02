@@ -81,6 +81,7 @@ TRANSLATOR:
           target: "^UA_Server_addObjectTypeNode$",
           tips: [ref, size, size, size, size, size, ref, ref],
         }
+      - { target: "^UA_String_fromChars$", tips: [size] }
       - { target: "^UA_STRING$", tips: [size] }
       - { target: "^UA_NODEID_NUMERIC$", tips: [size, size] }
       - { target: "^UA_NODEID_STRING$", tips: [size, size] }
@@ -110,6 +111,7 @@ TRANSLATOR:
       - { action: accept, from: "^UA_Server_addVariableNode$" }
       - { action: accept, from: "^UA_Server_addObjectNode$" }
       - { action: accept, from: "^UA_Server_addObjectTypeNode$" }
+      - { action: accept, from: "^UA_String_fromChars$" }
       - { action: accept, from: "^UA_STRING$" }
       - { action: accept, from: "^UA_NODEID_NUMERIC$" }
       - { action: accept, from: "^UA_NODEID_STRING$" }
@@ -125,26 +127,43 @@ TRANSLATOR:
       - { action: accept, from: "^UA_ServerConfig$" }
       - { action: accept, from: "^UA_Server$" }
       - { action: accept, from: "^UA_NodeTypeLifecycle$" }
+      # Start Builtin Types
       - { action: accept, from: "^UA_Boolean$" }
+      - { action: accept, from: "^UA_SByte$" }
+      - { action: accept, from: "^UA_Byte$" }
+      - { action: accept, from: "^UA_Int16$" }
+      - { action: accept, from: "^UA_UInt16$" }
       - { action: accept, from: "^UA_Int32$" }
+      - { action: accept, from: "^UA_UInt32$" }
       - { action: accept, from: "^UA_Int64$" }
+      - { action: accept, from: "^UA_UInt64$" }
+      - { action: accept, from: "^UA_Float$" }
       - { action: accept, from: "^UA_Double$" }
+      - { action: accept, from: "^UA_StatusCode$" }
       - { action: accept, from: "^UA_String$" }
+      - { action: accept, from: "^UA_DateTime$" }
+      - { action: accept, from: "^UA_Guid$" }
       - { action: accept, from: "^UA_ByteString$" }
+      - { action: accept, from: "^UA_XmlElement$" }
       - { action: accept, from: "^UA_NodeId$" }
+      - { action: accept, from: "^UA_ExpandedNodeId$" }
       - { action: accept, from: "^UA_QualifiedName$" }
       - { action: accept, from: "^UA_LocalizedText$" }
+      - { action: accept, from: "^UA_NumericRange$" }
       - { action: accept, from: "^UA_DataType$" }
       - { action: accept, from: "^UA_Variant$" }
       - { action: accept, from: "^UA_DataValue$" }
+      - { action: accept, from: "^UA_DiagnosticInfo$" }
+      # End Builtin Types
       - { action: accept, from: "^uint64_t$" }
       - { action: accept, from: "^int64_t$" }
       - { action: accept, from: "^UA_ObjectAttributes$" }
       - { action: accept, from: "^UA_VariableAttributes$" }
       - { action: accept, from: "^UA_ObjectTypeAttributes$" }
       - { action: accept, from: "^UA_WriteValue$" }
-      # Enums
+      # Start Enums
       - { action: accept, from: "^UA_AttributeId$" }
+      # End Enums
     const:
       - { action: accept, from: "^UA_" }
     private:

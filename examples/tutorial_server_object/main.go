@@ -3,22 +3,16 @@ package main
 import (
 	"os"
 	"os/signal"
-	"strings"
 	"syscall"
 	"unsafe"
 
 	ua "github.com/goonya/open62541-go/open62541"
 )
 
-var (
-	lang, _ = os.LookupEnv("LANG")
-	locale  = strings.Split(lang, ".")[0]
-)
-
 func manuallyDefinePump(server *ua.Server) {
 	var pumpID ua.NodeId /* get the nodeid assigned by the server */
 	var oAttr ua.ObjectAttributes
-	oAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("Pump (Manual)"))
+	oAttr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("Pump (Manual)"))
 	//oAttr.PassRef()
 	ua.ServerAddObjectNode(
 		server, ua.NodeId{},
@@ -30,10 +24,10 @@ func manuallyDefinePump(server *ua.Server) {
 	)
 
 	var mnAttr ua.VariableAttributes
-	// var manufacturerName ua.String = ua.STRING([]byte("Pump King Ltd."))
-	// ua.VariantSetScalar(&mnAttr.Value, unsafe.Pointer(&manufacturerName), &ua.TYPES[ua.TYPESSTRING])
-	mnAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("ManufacturerName"))
-	mnAttr.AccessLevel = byte(ua.ACCESSLEVELMASKREAD)
+	var manufacturerName ua.String = ua.StringFromChars("Pump King Ltd.")
+	ua.VariantSetScalar(&mnAttr.Value, unsafe.Pointer(&manufacturerName), &ua.TYPES[ua.TYPESSTRING])
+	mnAttr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("ManufacturerName"))
+	mnAttr.AccessLevel = ua.ACCESSLEVELMASKREAD
 	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
 		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
 		ua.QUALIFIEDNAME(1, []byte("ManufacturerName")),
@@ -41,10 +35,10 @@ func manuallyDefinePump(server *ua.Server) {
 	)
 
 	var modelAttr ua.VariableAttributes
-	// var modelName ua.String = ua.STRING([]byte("Mega Pump 3000"))
-	// ua.VariantSetScalar(&modelAttr.Value, unsafe.Pointer(&modelName), &ua.TYPES[ua.TYPESSTRING])
-	modelAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("ModelName"))
-	modelAttr.AccessLevel = byte(ua.ACCESSLEVELMASKREAD)
+	var modelName ua.String = ua.StringFromChars("Mega Pump 3000")
+	ua.VariantSetScalar(&modelAttr.Value, unsafe.Pointer(&modelName), &ua.TYPES[ua.TYPESSTRING])
+	modelAttr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("ModelName"))
+	modelAttr.AccessLevel = ua.ACCESSLEVELMASKREAD
 	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
 		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
 		ua.QUALIFIEDNAME(1, []byte("ModelName")),
@@ -53,8 +47,8 @@ func manuallyDefinePump(server *ua.Server) {
 	var statusAttr ua.VariableAttributes
 	var status ua.Boolean = true
 	ua.VariantSetScalar(&statusAttr.Value, unsafe.Pointer(&status), &ua.TYPES[ua.TYPESBOOLEAN])
-	statusAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("Status"))
-	statusAttr.AccessLevel = byte(ua.ACCESSLEVELMASKREAD)
+	statusAttr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("Status"))
+	statusAttr.AccessLevel = ua.ACCESSLEVELMASKREAD
 	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
 		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
 		ua.QUALIFIEDNAME(1, []byte("Status")),
@@ -63,8 +57,8 @@ func manuallyDefinePump(server *ua.Server) {
 	var rpmAttr ua.VariableAttributes
 	var rpm ua.Double = 50.0
 	ua.VariantSetScalar(&rpmAttr.Value, unsafe.Pointer(&rpm), &ua.TYPES[ua.TYPESDOUBLE])
-	rpmAttr.DisplayName = ua.LOCALIZEDTEXT([]byte(locale), []byte("MotorRPM"))
-	rpmAttr.AccessLevel = byte(ua.ACCESSLEVELMASKREAD)
+	rpmAttr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("MotorRPM"))
+	rpmAttr.AccessLevel = ua.ACCESSLEVELMASKREAD
 	ua.ServerAddVariableNode(server, ua.NodeId{}, pumpID,
 		ua.NODEIDNUMERIC(0, ua.NS0IDHASCOMPONENT),
 		ua.QUALIFIEDNAME(1, []byte("MotorRPMs")),

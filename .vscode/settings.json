@@ -2,6 +2,17 @@
     "files.associations": {
         "signal.h": "c",
         "server.h": "c",
-        "server_config_default.h": "c"
+        "server_config_default.h": "c",
+        "istream": "c",
+        "ostream": "c",
+        "ratio": "c",
+        "array": "c",
+        "functional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "variant": "c",
+        "optional": "c",
+        "system_error": "c"
     }
 }

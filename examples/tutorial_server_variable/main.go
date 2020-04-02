@@ -17,7 +17,7 @@ func addVariable(server *ua.Server, value int32) {
 	attr.Description = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("the answer"))
 	attr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("the answer"))
 	//attr.DataType = ua.TYPES[ua.TYPESINT32].TypeId
-	attr.AccessLevel = byte(ua.ACCESSLEVELMASKREAD | ua.ACCESSLEVELMASKWRITE)
+	attr.AccessLevel = ua.ACCESSLEVELMASKREAD | ua.ACCESSLEVELMASKWRITE
 
 	/* Add the variable node to the information model */
 	var myIntegerNodeId = ua.NODEIDSTRING(1, []byte("the.answer"))
@@ -41,15 +41,15 @@ func writeVariable(server *ua.Server, value int32) {
 	var wv ua.WriteValue
 	ua.WriteValueInit(&wv)
 	wv.NodeId = myIntegerNodeId
-	wv.AttributeId = uint32(ua.ATTRIBUTEIDVALUE)
+	wv.AttributeId = ua.UInt32(ua.ATTRIBUTEIDVALUE)
 	wv.Value.SetStatus(uint32(ua.STATUSCODEBADNOTCONNECTED))
 	// wv.Value.HasStatus = true
 	ua.ServerWrite(server, &wv)
 
-	// wv.Value.HasStatus = false
-	wv.Value.SetValue(myVar)
-	// wv.Value.HasValue = true
-	ua.ServerWrite(server, &wv)
+	// // wv.Value.HasStatus = false
+	// wv.Value.SetValue(myVar)
+	// // wv.Value.HasValue = true
+	// ua.ServerWrite(server, &wv)
 }
 
 func main() {
