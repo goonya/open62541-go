@@ -13,7 +13,6 @@ void setHasStatus(UA_DataValue *value, bool hasStatus) {
 	if (value == NULL) { return; }
 	value->hasStatus = hasStatus;
 }
-
 */
 import "C"
 import "unsafe"

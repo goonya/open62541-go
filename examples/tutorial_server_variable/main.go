@@ -12,7 +12,7 @@ import (
 
 func addVariable(server *ua.Server, value int32) {
 	var attr ua.VariableAttributes
-	var myInteger int32 = int32(value)
+	var myInteger int32 = value
 	ua.VariantSetScalar(&attr.Value, unsafe.Pointer(&myInteger), &ua.TYPES[ua.TYPESINT32])
 	attr.Description = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("the answer"))
 	attr.DisplayName = ua.LOCALIZEDTEXT([]byte("ru-RU"), []byte("the answer"))
@@ -32,7 +32,7 @@ func addVariable(server *ua.Server, value int32) {
 func writeVariable(server *ua.Server, value int32) {
 	var myIntegerNodeId = ua.NODEIDSTRING(1, []byte("the.answer"))
 
-	var myInteger int32 = int32(value)
+	var myInteger int32 = value
 	var myVar ua.Variant
 	ua.VariantInit(&myVar)
 	ua.VariantSetScalar(&myVar, unsafe.Pointer(&myInteger), &ua.TYPES[ua.TYPESINT32])
